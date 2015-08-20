@@ -67,7 +67,7 @@ AnimatedSprite::Process(float deltaTime)
 void
 AnimatedSprite::Draw(BackBuffer& backbuffer)
 {
-	backbuffer.DrawAnimatedSprite(m_frames[m_currentFrame], m_frameWidth, this->GetTexture());
+	backbuffer.DrawAnimatedSprite(this, m_frames[m_currentFrame], m_frameWidth, this->GetTexture());
 }
 
 void

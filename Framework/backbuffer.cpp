@@ -8,6 +8,7 @@
 #include "texturemanager.h"
 #include "sprite.h"
 #include "texture.h"
+#include "AnimatedSprite.h"
 
 // Library includes:
 #include <SDL.h>
@@ -140,17 +141,17 @@ BackBuffer::DrawRectangle(int x1, int y1, int x2, int y2)
 }
 
 void 
-BackBuffer::DrawAnimatedSprite(int x, int width, Texture* texture){
+BackBuffer::DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture* texture){
 	
 	SDL_Rect dest;
 	SDL_Rect srcrect;
 
-	dest.x = x;
-	dest.y = 0;
+	dest.x = sprite->GetX();
+	dest.y = sprite->GetY();
 	dest.w = width;
 	dest.h = width;
 
-	srcrect.x = 0;
+	srcrect.x = x;
 	srcrect.y = 0;
 	srcrect.w = width;
 	srcrect.h = width;

@@ -11,7 +11,6 @@ public:
 	void SetJumped(bool set);
 	bool GetJumped();
 	void Process(float deltaTime);
-
 private:
 	bool m_jump;
 

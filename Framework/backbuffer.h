@@ -8,6 +8,7 @@ class Sprite;
 struct SDL_Window;
 struct SDL_Renderer;
 class Texture;
+class AnimatedSprite;
 
 class BackBuffer
 {
@@ -30,7 +31,7 @@ public:
 	void DrawRectangle(int x1, int y1, int x2, int y2);
 	void DrawLine(int x1, int y1, int x2, int y2);
 
-	void DrawAnimatedSprite(int x, int width, Texture* texture);
+	void DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture* texture);
 
 	Sprite* CreateSprite(const char* pcFilename);
 	

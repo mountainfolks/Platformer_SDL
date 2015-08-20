@@ -32,6 +32,7 @@ public:
 protected:
 	void Process(float deltaTime);
 	void Draw(BackBuffer& backBuffer);
+	void InitPlayerAnimation();
 
 private:
 	Game(const Game& game);

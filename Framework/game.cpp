@@ -10,6 +10,7 @@
 #include "sprite.h"
 #include "player.h"
 #include "AnimatedSprite.h"
+#include "texture.h"
 
 // Library includes:
 #include <cassert>
@@ -85,23 +86,31 @@ Game::Initialise()
 	m_pPlayer = new Player(m_sprite);*/
 
 
-	//------ Animated Sprite ------
-	Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\player_sprite.png");
-	an_sprite = new AnimatedSprite();
-	m_pPlayer = new Player(an_sprite);
-	an_sprite->Initialise(*sprite->GetTexture());
-	an_sprite->SetFrameWidth(32);
-	an_sprite->SetFrameSpeed(10.0f);
-	an_sprite->AddFrame(0);
-	an_sprite->AddFrame(32);
-	an_sprite->AddFrame(64);
-	an_sprite->AddFrame(96);
-	an_sprite->AddFrame(128);
+	InitPlayerAnimation();
 
 	m_lastTime = SDL_GetTicks();
 	m_lag = 0.0f;
 
 	return (true);
+}
+
+void 
+Game::InitPlayerAnimation(){
+	Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\player_sprite.png");
+	Texture* tex = sprite->GetTexture();
+
+	an_sprite = new AnimatedSprite();
+	an_sprite->Initialise(*tex);
+	an_sprite->SetFrameWidth(32);
+	an_sprite->SetFrameSpeed(0.15f);
+	an_sprite->AddFrame(0);
+	an_sprite->AddFrame(32);
+	an_sprite->AddFrame(64);
+	an_sprite->AddFrame(96);
+	an_sprite->AddFrame(128);
+	an_sprite->SetX(100);
+	an_sprite->SetY(500);
+	m_pPlayer = new Player(an_sprite);
 }
 
 bool 

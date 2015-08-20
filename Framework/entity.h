@@ -16,7 +16,7 @@ public:
 	bool Initialise(Sprite* sprite);
 
 	void Process(float deltaTime);
-	void Draw(BackBuffer& backBuffer);
+	virtual void Draw(BackBuffer& backBuffer);
 
 	void SetDead(bool dead);
 	bool IsDead() const;

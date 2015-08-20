@@ -43,9 +43,9 @@ Entity::Process(float deltaTime)
 	m_y = m_pSprite->GetY() + (m_velocityY * deltaTime);
 	m_pSprite->SetY(m_y);
 	
-	if (m_y > 500){
-		m_y = 500;
-		m_pSprite->SetY(500);
+	if (m_y > 245){
+		m_y = 245;
+		m_pSprite->SetY(245);
 	}
 }
 

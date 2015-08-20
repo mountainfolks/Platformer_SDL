@@ -64,6 +64,8 @@ BackBuffer::Initialise(int width, int height)
 		{
 			m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_ACCELERATED); 
 
+			//SDL_RenderSetScale(m_pRenderer, 2, 2);
+
 			if (m_pRenderer == 0)
 			{
 				LogSDLError();
@@ -157,6 +159,7 @@ BackBuffer::DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture
 	srcrect.h = width;
 
 	SDL_RenderCopy(m_pRenderer, texture->GetTexture(), &srcrect, &dest);
+	//SDL_RenderCopyEx(m_pRenderer, texture->GetTexture(), &srcrect, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
 }
 
 void

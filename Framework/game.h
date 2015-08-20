@@ -7,6 +7,7 @@ class InputHandler;
 class Sprite;
 class Player;
 class AnimatedSprite;
+class Level;
 
 class Game
 {
@@ -47,6 +48,7 @@ protected:
 	static Game* sm_pInstance;
 	BackBuffer* m_pBackBuffer;
 	InputHandler* m_pInputHandler;
+	Level* m_level;
 	bool m_looping;
 
 	float m_elapsedSeconds;

@@ -85,6 +85,7 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="inputhandler.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="logmanager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sprite.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="inputhandler.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="logmanager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />

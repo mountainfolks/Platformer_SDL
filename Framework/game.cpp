@@ -11,6 +11,7 @@
 #include "player.h"
 #include "AnimatedSprite.h"
 #include "texture.h"
+#include "Level.h"
 
 // Library includes:
 #include <cassert>
@@ -42,6 +43,7 @@ Game::DestroyInstance()
 Game::Game()
 : m_pBackBuffer(0)
 , m_pInputHandler(0)
+, m_level(0)
 , m_looping(true)
 , m_executionTime(0)
 , m_elapsedSeconds(0)
@@ -80,11 +82,15 @@ Game::Initialise()
 		return (false);
 	}
 
+	m_level = new Level("assets\\map.txt", *m_pBackBuffer);
+	m_level->LoadMap();
+	m_level->DrawMap();
+
+
 	/*Sprite* m_sprite = m_pBackBuffer->CreateSprite("assets\\player.png");
 	m_sprite->SetX(400);
 	m_sprite->SetY(500);
 	m_pPlayer = new Player(m_sprite);*/
-
 
 	InitPlayerAnimation();
 
@@ -102,6 +108,7 @@ Game::InitPlayerAnimation(){
 	an_sprite = new AnimatedSprite();
 	an_sprite->Initialise(*tex);
 	an_sprite->SetFrameWidth(32);
+	an_sprite->Pause();
 	an_sprite->SetFrameSpeed(0.15f);
 	an_sprite->AddFrame(0);
 	an_sprite->AddFrame(32);
@@ -177,9 +184,6 @@ Game::Draw(BackBuffer& backBuffer)
 	++m_frameCount;
 
 	backBuffer.Clear();
-	//---- old static sprite---
-	//backBuffer.DrawSprite(m_pPlayer->GetSprite());
-
 
 	//---animated sprite---
 	an_sprite->Draw(backBuffer);
@@ -195,18 +199,18 @@ Game::Quit()
 void 
 Game::MovePlayerLeft()
 { 
-	m_pPlayer->SetHorizontalVelocity(-300.0f);
+	m_pPlayer->SetHorizontalVelocity(-170.0f);
 }
 
 void
 Game::MovePlayerRight()
 {
-	m_pPlayer->SetHorizontalVelocity(300.0f);
+	m_pPlayer->SetHorizontalVelocity(170.0f);
 }
 
 void
 Game::PlayerJump(){
-	m_pPlayer->SetVerticalVelocity(-500.0f);
+	m_pPlayer->SetVerticalVelocity(-300.0f);
 	m_pPlayer->SetJumped(true);
 }
 

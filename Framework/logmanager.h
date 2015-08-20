@@ -1,4 +1,4 @@
-// 717310 C++ SDL Framework
+
 #ifndef __LOGMANAGER_H__
 #define __LOGMANAGER_H__
 

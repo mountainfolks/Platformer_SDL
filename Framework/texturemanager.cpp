@@ -1,4 +1,3 @@
-// 717310 C++ SDL Framework
 
 // This include:
 #include "texturemanager.h"
@@ -36,7 +35,6 @@ TextureManager::GetTexture(const char* pcFilename)
 
 	if (m_pLoadedTextures.find(pcFilename) == m_pLoadedTextures.end())
 	{
-		// Not already loaded... so load...
 		pTexture = new Texture();
 		if (!pTexture->Initialise(pcFilename, m_pRenderer))
 		{
@@ -47,7 +45,6 @@ TextureManager::GetTexture(const char* pcFilename)
 	}
 	else
 	{
-		// Is already loaded...
 		pTexture = m_pLoadedTextures[pcFilename];
 	}
 

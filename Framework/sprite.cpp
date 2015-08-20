@@ -1,4 +1,3 @@
-// 717310 C++ SDL Framework
 
 // This include:
 #include "sprite.h"

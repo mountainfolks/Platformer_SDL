@@ -1,4 +1,4 @@
-// 717310 C++ SDL Framework
+
 #ifndef __BACKBUFFER_H__
 #define __BACKBUFFER_H__
 

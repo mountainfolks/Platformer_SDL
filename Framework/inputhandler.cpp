@@ -1,4 +1,3 @@
-// 717310 C++ SDL Framework
 
 // This include:
 #include "inputhandler.h"
@@ -27,7 +26,6 @@ InputHandler::Initialise()
 void 
 InputHandler::ProcessInput(Game& game)
 {
-	// Ex006.2: Receive Input Events below...
 	SDL_Event e;
 	while (SDL_PollEvent(&e) != 0)
 	{

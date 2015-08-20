@@ -1,4 +1,4 @@
-// 717310 C++ SDL Framework
+
 #ifndef __INPUTHANDER_H__
 #define __INPUTHANDER_H__
 

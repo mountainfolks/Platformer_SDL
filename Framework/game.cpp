@@ -84,6 +84,8 @@ Game::Initialise()
 	m_sprite->SetY(500);
 	m_pPlayer = new Player(m_sprite);
 
+
+	//------ Animated Sprite ------
 	//Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\player_sprite.png");
 	//an_sprite = new AnimatedSprite();
 	//m_pPlayer = new Player(an_sprite);

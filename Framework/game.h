@@ -1,8 +1,7 @@
-// 717310 C++ SDL Framework
+
 #ifndef __GAME_H__
 #define __GAME_H__
 
-// Forward Declarations
 class BackBuffer;
 class InputHandler;
 class Sprite;
@@ -49,7 +48,6 @@ protected:
 	InputHandler* m_pInputHandler;
 	bool m_looping;
 
-	// Simulation Counters:
 	float m_elapsedSeconds;
 	float m_lag;
 	float m_executionTime;
@@ -59,7 +57,6 @@ protected:
 	int m_numUpdates;
 	bool m_drawDebugInfo;
 
-	// Game Entities:
 	Player* m_pPlayer;
 
 private:

@@ -1,4 +1,4 @@
-// 717310 C++ SDL Framework
+
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
@@ -34,14 +34,10 @@ public:
 
 	Sprite& GetSprite();
 
-protected:
 
 private:
 	Entity(const Entity& entity);
 	Entity& operator=(const Entity& entity);
-
-	//Member Data:
-public:
 
 protected:
 	Sprite* m_pSprite;
@@ -53,8 +49,6 @@ protected:
 	float m_velocityY;
 
 	bool m_dead;
-
-private:
 
 };
 

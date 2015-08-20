@@ -1,4 +1,3 @@
-// 717310 C++ SDL Framework
 
 // Library includes:
 #include <SDL.h>

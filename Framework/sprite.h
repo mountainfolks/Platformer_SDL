@@ -1,4 +1,4 @@
-// 717310 C++ SDL Framework
+
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 

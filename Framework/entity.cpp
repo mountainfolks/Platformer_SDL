@@ -1,6 +1,4 @@
-// 717310 C++ SDL Framework
 
-// This include:
 #include "entity.h"
 
 // Local includes:
@@ -61,15 +59,6 @@ Entity::Draw(BackBuffer& backBuffer)
 bool
 Entity::IsCollidingWith(Entity& e)
 {
-	// Ex006.4: Generic Entity Collision routine.
-	// Ex006.4: Does this object collide with the e object?
-	// Ex006.4: Create a circle for each entity (this and e).
-
-	// Ex006.4: Check for intersection.
-	// Ex006.4: Using circle-vs-circle collision detection.
-
-	// Ex006.4: Return result of collision.
-
 	return (false); // Ex006.4 Change return value!
 }
 

@@ -79,24 +79,24 @@ Game::Initialise()
 		return (false);
 	}
 
-	Sprite* m_sprite = m_pBackBuffer->CreateSprite("assets\\player.png");
+	/*Sprite* m_sprite = m_pBackBuffer->CreateSprite("assets\\player.png");
 	m_sprite->SetX(400);
 	m_sprite->SetY(500);
-	m_pPlayer = new Player(m_sprite);
+	m_pPlayer = new Player(m_sprite);*/
 
 
 	//------ Animated Sprite ------
-	//Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\player_sprite.png");
-	//an_sprite = new AnimatedSprite();
-	//m_pPlayer = new Player(an_sprite);
-	//an_sprite->Initialise(*sprite->GetTexture());
-	//an_sprite->SetFrameWidth(32);
-	//an_sprite->SetFrameSpeed(10.0f);
-	//an_sprite->AddFrame(0);
-	//an_sprite->AddFrame(32);
-	//an_sprite->AddFrame(64);
-	//an_sprite->AddFrame(96);
-	//an_sprite->AddFrame(128);
+	Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\player_sprite.png");
+	an_sprite = new AnimatedSprite();
+	m_pPlayer = new Player(an_sprite);
+	an_sprite->Initialise(*sprite->GetTexture());
+	an_sprite->SetFrameWidth(32);
+	an_sprite->SetFrameSpeed(10.0f);
+	an_sprite->AddFrame(0);
+	an_sprite->AddFrame(32);
+	an_sprite->AddFrame(64);
+	an_sprite->AddFrame(96);
+	an_sprite->AddFrame(128);
 
 	m_lastTime = SDL_GetTicks();
 	m_lag = 0.0f;
@@ -154,6 +154,7 @@ Game::Process(float deltaTime)
 	}
 
 	m_pPlayer->Process(deltaTime);
+	an_sprite->Process(deltaTime);
 	
 	if (m_pPlayer->GetJumped()){
 		m_pPlayer->SetVerticalVelocity(m_pPlayer->GetVerticalVelocity() + (700.0f * deltaTime));
@@ -167,8 +168,12 @@ Game::Draw(BackBuffer& backBuffer)
 	++m_frameCount;
 
 	backBuffer.Clear();
-	backBuffer.DrawSprite(m_pPlayer->GetSprite());
+	//---- old static sprite---
+	//backBuffer.DrawSprite(m_pPlayer->GetSprite());
 
+
+	//---animated sprite---
+	an_sprite->Draw(backBuffer);
 	backBuffer.Present();
 }
 

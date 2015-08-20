@@ -64,14 +64,11 @@ AnimatedSprite::Process(float deltaTime)
 	}
 }
 
-//void
-//AnimatedSprite::Draw(BackBuffer& backbuffer)
-//{
-//	// Ex007.1: Draw the particular frame into the backbuffer.
-//	backbuffer.DrawAnimatedSprite(m_frames[m_currentFrame], m_frameWidth, this->GetTexture()->GetTexture());
-//	//          What is the current frame's x coordinate?
-//	//          What is the frame width?
-//}
+void
+AnimatedSprite::Draw(BackBuffer& backbuffer)
+{
+	backbuffer.DrawAnimatedSprite(m_frames[m_currentFrame], m_frameWidth, this->GetTexture());
+}
 
 void
 AnimatedSprite::SetFrameSpeed(float f)

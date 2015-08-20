@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(Sprite* sprite) : Entity()
+Player::Player(AnimatedSprite* sprite) : Entity()
 {
 	Entity::Initialise(sprite);
 }

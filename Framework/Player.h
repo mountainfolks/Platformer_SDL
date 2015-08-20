@@ -1,10 +1,11 @@
 #pragma once
 #include "entity.h"
+#include "AnimatedSprite.h"
 
 class Player : public Entity
 {
 public:
-	Player(Sprite* sprite);
+	Player(AnimatedSprite* sprite);
 	~Player();
 
 	void SetJumped(bool set);

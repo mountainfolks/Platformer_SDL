@@ -58,6 +58,7 @@ protected:
 	bool m_drawDebugInfo;
 
 	Player* m_pPlayer;
+	AnimatedSprite* an_sprite;
 
 private:
 

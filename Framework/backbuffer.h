@@ -30,7 +30,7 @@ public:
 	void DrawRectangle(int x1, int y1, int x2, int y2);
 	void DrawLine(int x1, int y1, int x2, int y2);
 
-	//void DrawAnimatedSprite(int x, int width, SDL_Texture* texture);
+	void DrawAnimatedSprite(int x, int width, Texture* texture);
 
 	Sprite* CreateSprite(const char* pcFilename);
 	

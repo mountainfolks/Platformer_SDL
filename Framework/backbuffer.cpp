@@ -139,24 +139,24 @@ BackBuffer::DrawRectangle(int x1, int y1, int x2, int y2)
 	SDL_RenderFillRect(m_pRenderer, &fillRect);
 }
 
-//void 
-//BackBuffer::DrawAnimatedSprite(int x, int width, SDL_Texture* texture){
-//	
-//	SDL_Rect dest;
-//	SDL_Rect srcrect;
-//
-//	dest.x = x;
-//	dest.y = 0;
-//	dest.w = width;
-//	dest.h = width;
-//
-//	srcrect.x = 0;
-//	srcrect.y = 0;
-//	srcrect.w = width * 5;
-//	srcrect.h = width;
-//
-//	SDL_RenderCopy(m_pRenderer, texture, &srcrect, &dest);
-//}
+void 
+BackBuffer::DrawAnimatedSprite(int x, int width, Texture* texture){
+	
+	SDL_Rect dest;
+	SDL_Rect srcrect;
+
+	dest.x = x;
+	dest.y = 0;
+	dest.w = width;
+	dest.h = width;
+
+	srcrect.x = 0;
+	srcrect.y = 0;
+	srcrect.w = width * 5;
+	srcrect.h = width;
+
+	SDL_RenderCopy(m_pRenderer, texture->GetTexture(), &srcrect, &dest);
+}
 
 void
 BackBuffer::DrawLine(int x1, int y1, int x2, int y2)

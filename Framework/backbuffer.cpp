@@ -152,7 +152,7 @@ BackBuffer::DrawAnimatedSprite(int x, int width, Texture* texture){
 
 	srcrect.x = 0;
 	srcrect.y = 0;
-	srcrect.w = width * 5;
+	srcrect.w = width;
 	srcrect.h = width;
 
 	SDL_RenderCopy(m_pRenderer, texture->GetTexture(), &srcrect, &dest);

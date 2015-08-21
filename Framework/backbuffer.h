@@ -31,9 +31,10 @@ public:
 	void DrawRectangle(int x1, int y1, int x2, int y2);
 	void DrawLine(int x1, int y1, int x2, int y2);
 
-	void DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture* texture);
+	void DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture* texture, bool isleft);
 
 	Sprite* CreateSprite(const char* pcFilename);
+	AnimatedSprite* CreateAnimatedSprite(const char* pcFilename);
 	
 protected:
 	void LogSDLError();

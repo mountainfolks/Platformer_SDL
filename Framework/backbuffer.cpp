@@ -143,7 +143,7 @@ BackBuffer::DrawRectangle(int x1, int y1, int x2, int y2)
 }
 
 void 
-BackBuffer::DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture* texture){
+BackBuffer::DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture* texture, bool isLeft){
 	
 	SDL_Rect dest;
 	SDL_Rect srcrect;
@@ -158,8 +158,12 @@ BackBuffer::DrawAnimatedSprite(AnimatedSprite* sprite, int x, int width, Texture
 	srcrect.w = width;
 	srcrect.h = width;
 
-	SDL_RenderCopy(m_pRenderer, texture->GetTexture(), &srcrect, &dest);
-	//SDL_RenderCopyEx(m_pRenderer, texture->GetTexture(), &srcrect, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
+	if (isLeft){
+		SDL_RenderCopyEx(m_pRenderer, texture->GetTexture(), &srcrect, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
+	}
+	else{
+		SDL_RenderCopy(m_pRenderer, texture->GetTexture(), &srcrect, &dest);
+	}
 }
 
 void
@@ -172,6 +176,18 @@ void
 BackBuffer::LogSDLError()
 {
 	LogManager::GetInstance().Log(SDL_GetError());
+}
+
+AnimatedSprite*
+BackBuffer::CreateAnimatedSprite(const char * pcFilename){
+	assert(m_pTextureManager);
+	Texture* pTexture = m_pTextureManager->GetTexture(pcFilename);
+	AnimatedSprite* sprite = new AnimatedSprite();
+	if (!sprite->Initialise(*pTexture))
+	{
+		LogManager::GetInstance().Log("Sprite Failed to Create!");
+	}
+	return (sprite);
 }
 
 Sprite* 

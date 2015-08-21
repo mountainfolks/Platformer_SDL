@@ -35,18 +35,24 @@ InputHandler::ProcessInput(Game& game)
 		}
 		else if (e.type == SDL_KEYDOWN)
 		{
-			switch (e.key.keysym.sym)
-			{
-			case SDLK_LEFT:
-				game.MovePlayerLeft();
-				break;
-			case SDLK_RIGHT:
-				game.MovePlayerRight();
-				break;
-			case SDLK_SPACE:
-				game.PlayerJump();
-				break;
+			if (game.CheckInValid() == false){
+				switch (e.key.keysym.sym)
+				{
+				case SDLK_LEFT:
+					game.MovePlayerLeft();
+					break;
+				case SDLK_RIGHT:
+					game.MovePlayerRight();
+					break;
+				case SDLK_SPACE:
+					game.PlayerJump();
+					break;
+				case SDLK_z:
+					game.SpawnSpear();
+					break;
+				}
 			}
+			
 		}
 
 		else if (e.type == SDL_KEYUP){

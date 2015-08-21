@@ -10,6 +10,7 @@ class AnimatedSprite;
 class Level;
 class Map;
 class Trap;
+class Spear;
 
 using namespace std;
 
@@ -37,6 +38,11 @@ public:
 	void SpawnEnemy(int x, int y);
 	void SpawnExplosion(int x, int y);
 	
+	bool CheckInValid();
+
+	void SpawnSpear();
+	void SpawnDiamond();
+
 protected:
 	void Process(float deltaTime);
 	void Draw(BackBuffer& backBuffer);
@@ -71,8 +77,13 @@ protected:
 
 	Player* m_pPlayer;
 	AnimatedSprite* an_sprite;
+	AnimatedSprite* an_explosion;
+	AnimatedSprite* jewel;
+
 	Map* map;
 	vector<Trap*> m_traps;
+	vector<AnimatedSprite*> explosions;
+	vector<Spear*> m_spears;
 
 private:
 

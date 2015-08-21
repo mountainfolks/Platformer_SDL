@@ -2,6 +2,7 @@
 #include "Map.h"
 
 Player::Player(AnimatedSprite* sprite) : Entity()
+, m_left(0)
 {
 	Entity::Initialise(sprite);
 }
@@ -27,4 +28,14 @@ bool
 Player::GetJumped()
 {
 	return m_jump;
+}
+
+bool
+Player::FacingLeft(){
+	return m_left;
+}
+
+void
+Player::setFacingLeft(bool left){
+	m_left = left;
 }

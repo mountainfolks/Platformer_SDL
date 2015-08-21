@@ -3,6 +3,7 @@
 
 #include "sprite.h"
 #include <vector>
+#include "Player.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ public:
 	void AddFrame(int x);
 
 	void Process(float deltaTime);
-	void Draw(BackBuffer& backbuffer);
+	void Draw(BackBuffer& backbuffer, bool isLeft);
 
 	void SetFrameSpeed(float f);
 	void SetFrameWidth(int w);
@@ -33,6 +34,8 @@ public:
 
 	bool IsLooping();
 	void SetLooping(bool b);
+
+	int GetCurrentFrame();
 
 protected:
 

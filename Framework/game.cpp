@@ -13,6 +13,7 @@
 #include "texture.h"
 #include "map.h"
 #include "trap.h"
+#include "spear.h"
 
 // Library includes:
 #include <cassert>
@@ -97,8 +98,11 @@ Game::Initialise()
 	map->load("assets\\test.map");
 
 	SpawnTraps(200, 270);
+	SpawnTraps(100, 220);
 
 	InitPlayerAnimation();
+
+	SpawnDiamond();
 
 	m_lastTime = SDL_GetTicks();
 	m_lag = 0.0f;
@@ -176,8 +180,40 @@ Game::Process(float deltaTime)
 		m_frameCount = 0;
 	}
 
+	if (m_pPlayer->GetHorizontalVelocity() == 0){
+		an_sprite->StartAnimating();
+	}
+
 	m_pPlayer->Process(deltaTime);
 	an_sprite->Process(deltaTime);
+
+	jewel->Process(deltaTime);
+	
+	for (int i = 0; i < explosions.size(); ++i){
+		AnimatedSprite* sprite = explosions[i];
+		if (sprite->GetCurrentFrame() == 4){
+			explosions.erase(explosions.begin() + i);
+		}
+		else{
+			sprite->Process(deltaTime);
+		}
+
+	}
+
+	for (int i = 0; i < m_spears.size(); ++i){
+		Spear* spear = m_spears[i];
+		spear->Process(deltaTime);
+		for (int j = 0; j < m_traps.size(); ++j){
+			Trap* trap = m_traps[j];
+			if (spear->IsCollidingWith(*trap)){
+				/*spear->SetDead(true);
+				trap->SetDead(true);*/
+				m_traps.erase(m_traps.begin() + j);
+				m_spears.erase(m_spears.begin() + i);
+				SpawnExplosion(trap->GetPositionX() - 4, trap->GetPositionY() -10);
+			}
+		}
+	}
 
 	m_pPlayer->HandleMovement(deltaTime, map);
 
@@ -188,6 +224,7 @@ Game::Process(float deltaTime)
 			trap->SetDead(true);
 			m_traps.erase(m_traps.begin() + i);
 			m_pPlayer->SetDead(true);
+			SpawnExplosion(m_pPlayer->GetPositionX() , m_pPlayer->GetPositionY() );
 		}
 	}
 
@@ -206,16 +243,30 @@ Game::Draw(BackBuffer& backBuffer)
 	backBuffer.Clear();
 
 	//---animated sprite---
-	if (m_pPlayer->IsDead() != true){
-		m_pPlayer->Draw(backBuffer);
-		//an_sprite->Draw(backBuffer);
-	}
 
 	map->draw(backBuffer);
+	
+
+	if (m_pPlayer->IsDead() != true){
+		bool left = m_pPlayer->FacingLeft();
+		an_sprite->Draw(backBuffer, left);
+	}
 
 	for (int i = 0; i < m_traps.size(); ++i){
 		m_traps[i]->Draw(backBuffer);
 	}
+
+	for (int i = 0; i < explosions.size(); ++i){
+		AnimatedSprite* exp = explosions[i];
+		exp->Draw(backBuffer, false);
+	}
+
+	for (int i = 0; i < m_spears.size(); ++i){
+		Spear* spear = m_spears[i];
+		spear->Draw(backBuffer);
+	}
+
+	jewel->Draw(backBuffer, false);
 
 	backBuffer.Present();
 }
@@ -230,12 +281,14 @@ void
 Game::MovePlayerLeft()
 { 
 	m_pPlayer->SetHorizontalVelocity(-170.0f);
+	m_pPlayer->setFacingLeft(true);
 }
 
 void
 Game::MovePlayerRight()
 {
 	m_pPlayer->SetHorizontalVelocity(170.0f);
+	m_pPlayer->setFacingLeft(false);
 }
 
 void
@@ -247,6 +300,27 @@ Game::PlayerJump(){
 void
 Game::MoveStop(){
 	m_pPlayer->SetHorizontalVelocity(0);
+}
+
+void
+Game::SpawnSpear(){
+	Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\spear.png");
+	sprite->SetX(m_pPlayer->GetPositionX());
+	sprite->SetY(m_pPlayer->GetPositionY() + 15);
+
+	Spear* spear = new Spear(sprite);
+	spear->SetPositionX(m_pPlayer->GetPositionX());
+	spear->SetPositionY(m_pPlayer->GetPositionY() + 15);
+	
+	if (m_pPlayer->FacingLeft()){
+		spear->SetHorizontalVelocity(-210.0f);
+	}
+	else{
+
+		spear->SetHorizontalVelocity(210.0f);
+	}
+
+	m_spears.push_back(spear);
 }
 
 void
@@ -262,4 +336,49 @@ Game::SpawnTraps(int x, int y){
 	trap->SetPositionX(x);
 	trap->SetPositionY(y);
 	m_traps.push_back(trap);
+}
+
+void
+Game::SpawnExplosion(int x, int y){
+
+	Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\explosion.png");
+	Texture* tex = sprite->GetTexture();
+
+	an_explosion = new AnimatedSprite();
+	an_explosion->Initialise(*tex);
+	an_explosion->SetFrameWidth(36);
+	an_explosion->SetLooping(false);
+	an_explosion->SetFrameSpeed(0.1f);
+	an_explosion->AddFrame(0);
+	an_explosion->AddFrame(36);
+	an_explosion->AddFrame(72);
+	an_explosion->AddFrame(108);
+	an_explosion->AddFrame(144);
+	an_explosion->SetX(x);
+	an_explosion->SetY(y);
+	explosions.push_back(an_explosion);
+}
+
+void
+Game::SpawnDiamond(){
+
+	Sprite* sprite = m_pBackBuffer->CreateAnimatedSprite("assets\\spin_diammond.png");
+	Texture *tex = sprite->GetTexture();
+
+	jewel = new AnimatedSprite();
+	jewel->Initialise(*tex);
+	jewel->SetFrameWidth(31);
+	jewel->SetLooping(true);
+	jewel->SetFrameSpeed(0.5f);
+	jewel->AddFrame(0);
+	jewel->AddFrame(31);
+	jewel->AddFrame(63);
+	jewel->AddFrame(94);
+	jewel->SetX(300);
+	jewel->SetY(10);
+}
+
+bool
+Game::CheckInValid(){
+	return m_pPlayer->IsDead();
 }

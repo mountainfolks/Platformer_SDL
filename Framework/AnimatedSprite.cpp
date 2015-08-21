@@ -54,20 +54,17 @@ AnimatedSprite::Process(float deltaTime)
 		if (m_timeElapsed > m_frameSpeed){
 			m_timeElapsed = 0;
 			m_currentFrame++;
-			if (m_currentFrame >= m_frames.size()){
+	  	  	if (m_currentFrame >= m_frames.size()){
 				m_currentFrame = 0;
-			}
-			if (!m_loop){
-				m_paused = true;
 			}
 		}
 	}
 }
 
 void
-AnimatedSprite::Draw(BackBuffer& backbuffer)
+AnimatedSprite::Draw(BackBuffer& backbuffer, bool isLeft)
 {
-	backbuffer.DrawAnimatedSprite(this, m_frames[m_currentFrame], m_frameWidth, this->GetTexture());
+	backbuffer.DrawAnimatedSprite(this, m_frames[m_currentFrame], m_frameWidth, this->GetTexture(), isLeft);
 }
 
 void
@@ -85,7 +82,7 @@ AnimatedSprite::SetFrameWidth(int w)
 void
 AnimatedSprite::Pause()
 {
-	m_paused = !m_paused;
+	m_paused = true;
 }
 
 bool
@@ -119,4 +116,9 @@ void
 AnimatedSprite::SetLooping(bool b)
 {
 	m_loop = b;
+}
+
+int
+AnimatedSprite::GetCurrentFrame(){
+	return m_currentFrame;
 }

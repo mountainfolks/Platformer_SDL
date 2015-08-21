@@ -5,6 +5,8 @@
 #include "sprite.h"
 #include "backbuffer.h"
 #include "Map.h"
+#include "game.h"
+#include <SDL.h>
 
 // Library includes:
 #include <cassert>
@@ -34,21 +36,14 @@ Entity::Initialise(Sprite* sprite)
 }
 
 void 
-Entity::Process(float deltaTime, Map* map)
+Entity::Process(float deltaTime)
 {
-
 	m_x = m_pSprite->GetX() + (m_velocityX * deltaTime);
 	m_pSprite->SetX(m_x);
 
 	m_y = m_pSprite->GetY() + (m_velocityY * deltaTime);
 	m_pSprite->SetY(m_y);
 
-	//HandleMovement(deltaTime, map);
-
-	/*if (m_y > 245){
-		m_y = 245;
-		m_pSprite->SetY(245);
-	}*/
 }
 
 void 
@@ -64,31 +59,33 @@ Entity::HandleMovement(float deltaTime, Map* map)
 
 	int tilePos;
 
-	/*if (m_velocityX > 0){
+	//if (m_velocityX > 0){
 
-		if (VerticalCollision((m_x, +(m_velocityX / 15) + m_pSprite->GetWidth()), m_y, tilePos, map))
-		{
-			m_x = (tilePos * 32) - m_pSprite->GetWidth();
-			m_pSprite->SetX(m_x);
-		}
-		else
-		{
-			m_x = m_pSprite->GetX() + (m_velocityX * deltaTime);
-			m_pSprite->SetX(m_x);
-		}
-	}
-	else if (m_velocityX < 0){
+	//	if (VerticalCollision((m_x + (m_velocityX/ 10) + m_pSprite->GetWidth()), m_y, tilePos, map))
+	//	{
+	//		m_x = (tilePos * 32) - m_pSprite->GetWidth() + 4;
+	//		m_pSprite->SetX(m_x);
+	//	}
+	//	else
+	//	{
+	//		m_x = m_pSprite->GetX() + (m_velocityX * deltaTime);
+	//		m_pSprite->SetX(m_x);
+	//	}
+	//}
+	//else if (m_velocityX < 0){
 
-		if (VerticalCollision((m_x + m_velocityX / 15), m_y, tilePos, map)){
-			m_x = (tilePos + 1) * 32;
-			m_pSprite->SetX(m_x);
-		}
-		else{
-			m_x = m_pSprite->GetX() + (m_velocityX * deltaTime);
-			m_pSprite->SetX(m_x);
-		}
+	//	if (VerticalCollision((m_x + (m_velocityX / 10)), m_y, tilePos, map)){
+	//		m_x = (tilePos + 1) * 32;
+	//		m_pSprite->SetX(m_x);
+	//	}
+	//	else{
+	//		m_x = m_pSprite->GetX() + (m_velocityX * deltaTime);
+	//		m_pSprite->SetX(m_x);
+	//	}
+	//	
+	//	}
 
-	}*/
+	
 
 	if (m_velocityY > 0){
 
@@ -104,11 +101,11 @@ Entity::HandleMovement(float deltaTime, Map* map)
 	}
 	else{
 
-		/*if (HorizontalCollision(m_x, (m_y + m_velocityY), tilePos, map)){
+		if (HorizontalCollision(m_x, (m_y + (m_velocityY / 15)), tilePos, map)){
 			m_y = (tilePos + 1) * 32;
 			m_velocityY = 0;
 			m_pSprite->SetY(m_y);
-		}*/
+		}
 			
 			m_velocityY += (500.0f * deltaTime);
 
@@ -177,6 +174,36 @@ Entity::VerticalCollision(int x, int y, int &tilePosX, Map* _map){
 	return false;
 }
 
+bool
+Entity::IsCollidingWith(Entity& e){
+	SDL_Rect rect1;
+	SDL_Rect rect2;
+
+	rect1.x = this->GetPositionX();
+	rect1.y = this->GetPositionY();
+	rect1.w = 32;
+	rect1.h = 32;
+
+	rect2.x = e.GetPositionX();
+	rect2.y = e.GetPositionY();
+	rect2.w = 16;
+	rect2.h = 16;
+
+	if (rect1.y >= rect2.y + rect2.h){
+		return false;
+	}
+	if (rect1.x >= rect2.x + rect2.w){
+		return false;
+	}
+	if (rect1.y + rect1.h <= rect2.y){
+		return false;
+	}
+	if (rect1.x + rect1.w <= rect2.x){
+		return false;
+	}
+	return true;
+}
+
 //
 //bool
 //Entity::IsCollidingWith(Entity& e)
@@ -229,4 +256,14 @@ Entity::SetVerticalVelocity(float y)
 Sprite&
 Entity::GetSprite(){
 	return *m_pSprite;
+}
+
+void
+Entity::SetPositionX(float x){
+	m_x = x;
+}
+
+void 
+Entity::SetPositionY(float y){
+	m_y = y;
 }

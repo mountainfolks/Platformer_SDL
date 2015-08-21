@@ -16,16 +16,19 @@ public:
 
 	bool Initialise(Sprite* sprite);
 
-	void Process(float deltaTime, Map* map);
+	void Process(float deltaTime);
 	virtual void Draw(BackBuffer& backBuffer);
 
 	void SetDead(bool dead);
-	bool IsDead() const;
+	bool IsDead();
 
 	bool IsCollidingWith(Entity& e);
 
 	float GetPositionX();
 	float GetPositionY();
+
+	void SetPositionX(float x);
+	void SetPositionY(float y);
 
 	float GetHorizontalVelocity();
 	void SetHorizontalVelocity(float x); 

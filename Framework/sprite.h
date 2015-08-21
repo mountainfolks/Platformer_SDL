@@ -16,7 +16,7 @@ public:
 	bool Initialise(Texture& texture);
 
 	void Process(float deltaTime);
-	void Draw(BackBuffer& backbuffer);
+	virtual void Draw(BackBuffer& backbuffer);
 
 	void SetX(int x);
 	void SetY(int y);

@@ -9,6 +9,11 @@ class Player;
 class AnimatedSprite;
 class Level;
 class Map;
+class Trap;
+
+using namespace std;
+
+#include <vector>
 
 class Game
 {
@@ -27,9 +32,10 @@ public:
 	void PlayerJump();
 	void MoveStop();
 
+	
+	void SpawnTraps(int x, int y);
 	void SpawnEnemy(int x, int y);
 	void SpawnExplosion(int x, int y);
-
 	
 protected:
 	void Process(float deltaTime);
@@ -52,6 +58,8 @@ protected:
 	Level* m_level;
 	bool m_looping;
 
+	int m_jumpCount;
+
 	float m_elapsedSeconds;
 	float m_lag;
 	float m_executionTime;
@@ -64,6 +72,7 @@ protected:
 	Player* m_pPlayer;
 	AnimatedSprite* an_sprite;
 	Map* map;
+	vector<Trap*> m_traps;
 
 private:
 

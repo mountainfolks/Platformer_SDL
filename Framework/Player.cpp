@@ -12,9 +12,9 @@ Player::~Player()
 }
 
 void
-Player::Process(float deltaTime, Map* map)
+Player::Process(float deltaTime)
 {
-	Entity::Process(deltaTime, map);
+	Entity::Process(deltaTime);
 }
 
 void

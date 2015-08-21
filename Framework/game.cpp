@@ -12,6 +12,7 @@
 #include "AnimatedSprite.h"
 #include "texture.h"
 #include "map.h"
+#include "trap.h"
 
 // Library includes:
 #include <cassert>
@@ -95,6 +96,8 @@ Game::Initialise()
 	map = new Map();
 	map->load("assets\\test.map");
 
+	SpawnTraps(200, 270);
+
 	InitPlayerAnimation();
 
 	m_lastTime = SDL_GetTicks();
@@ -173,8 +176,20 @@ Game::Process(float deltaTime)
 		m_frameCount = 0;
 	}
 
-	m_pPlayer->Process(deltaTime, map);
+	m_pPlayer->Process(deltaTime);
 	an_sprite->Process(deltaTime);
+
+	m_pPlayer->HandleMovement(deltaTime, map);
+
+	for (int i = 0; i < m_traps.size(); ++i)
+	{
+		Trap* trap = m_traps[i];
+		if (m_pPlayer->IsCollidingWith(*trap)){
+			trap->SetDead(true);
+			m_traps.erase(m_traps.begin() + i);
+			m_pPlayer->SetDead(true);
+		}
+	}
 
 
 	if (m_pPlayer->GetJumped()){
@@ -191,13 +206,14 @@ Game::Draw(BackBuffer& backBuffer)
 	backBuffer.Clear();
 
 	//---animated sprite---
-	an_sprite->Draw(backBuffer);
+	m_pPlayer->Draw(backBuffer);
+	//an_sprite->Draw(backBuffer);
 
 	map->draw(backBuffer);
 
-	//Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\tile.png");
-	//sprite->SetX(300);
-	//m_pBackBuffer->DrawSprite(*sprite);
+	for (int i = 0; i < m_traps.size(); ++i){
+		m_traps[i]->Draw(backBuffer);
+	}
 
 	backBuffer.Present();
 }
@@ -229,4 +245,19 @@ Game::PlayerJump(){
 void
 Game::MoveStop(){
 	m_pPlayer->SetHorizontalVelocity(0);
+}
+
+void
+Game::SpawnTraps(int x, int y){
+	
+	Sprite* s_trap = m_pBackBuffer->CreateSprite("assets\\trap.png");
+
+	//set sprite position
+	s_trap->SetX(x);
+	s_trap->SetY(y);
+
+	Trap* trap = new Trap(s_trap, x, y);
+	trap->SetPositionX(x);
+	trap->SetPositionY(y);
+	m_traps.push_back(trap);
 }

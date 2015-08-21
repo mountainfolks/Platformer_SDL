@@ -11,7 +11,7 @@
 #include "player.h"
 #include "AnimatedSprite.h"
 #include "texture.h"
-#include "Level.h"
+#include "map.h"
 
 // Library includes:
 #include <cassert>
@@ -82,15 +82,18 @@ Game::Initialise()
 		return (false);
 	}
 
-	m_level = new Level("assets\\map.txt", *m_pBackBuffer);
+	/*m_level = new Level("assets\\map.txt", *m_pBackBuffer);
 	m_level->LoadMap();
-	m_level->DrawMap();
+	m_level->DrawMap();*/
 
 
 	/*Sprite* m_sprite = m_pBackBuffer->CreateSprite("assets\\player.png");
 	m_sprite->SetX(400);
 	m_sprite->SetY(500);
 	m_pPlayer = new Player(m_sprite);*/
+
+	map = new Map();
+	map->load("assets\\test.map");
 
 	InitPlayerAnimation();
 
@@ -108,15 +111,16 @@ Game::InitPlayerAnimation(){
 	an_sprite = new AnimatedSprite();
 	an_sprite->Initialise(*tex);
 	an_sprite->SetFrameWidth(32);
-	an_sprite->Pause();
+	an_sprite->SetLooping(true);
+	//an_sprite->Pause();
 	an_sprite->SetFrameSpeed(0.15f);
 	an_sprite->AddFrame(0);
 	an_sprite->AddFrame(32);
 	an_sprite->AddFrame(64);
 	an_sprite->AddFrame(96);
 	an_sprite->AddFrame(128);
-	an_sprite->SetX(100);
-	an_sprite->SetY(500);
+	an_sprite->SetX(0);
+	an_sprite->SetY(0);
 	m_pPlayer = new Player(an_sprite);
 }
 
@@ -169,11 +173,12 @@ Game::Process(float deltaTime)
 		m_frameCount = 0;
 	}
 
-	m_pPlayer->Process(deltaTime);
+	m_pPlayer->Process(deltaTime, map);
 	an_sprite->Process(deltaTime);
-	
+
+
 	if (m_pPlayer->GetJumped()){
-		m_pPlayer->SetVerticalVelocity(m_pPlayer->GetVerticalVelocity() + (700.0f * deltaTime));
+		m_pPlayer->SetVerticalVelocity(m_pPlayer->GetVerticalVelocity() + (500.0f * deltaTime));
 	}
 
 }
@@ -187,6 +192,13 @@ Game::Draw(BackBuffer& backBuffer)
 
 	//---animated sprite---
 	an_sprite->Draw(backBuffer);
+
+	map->draw(backBuffer);
+
+	//Sprite* sprite = m_pBackBuffer->CreateSprite("assets\\tile.png");
+	//sprite->SetX(300);
+	//m_pBackBuffer->DrawSprite(*sprite);
+
 	backBuffer.Present();
 }
 
@@ -210,7 +222,7 @@ Game::MovePlayerRight()
 
 void
 Game::PlayerJump(){
-	m_pPlayer->SetVerticalVelocity(-300.0f);
+	m_pPlayer->SetVerticalVelocity(-230.0f);
 	m_pPlayer->SetJumped(true);
 }
 

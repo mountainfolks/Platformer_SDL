@@ -5,6 +5,7 @@
 // Forward Declarations:
 class BackBuffer;
 class Sprite;
+class Map;
 
 class Entity
 {
@@ -15,7 +16,7 @@ public:
 
 	bool Initialise(Sprite* sprite);
 
-	void Process(float deltaTime);
+	void Process(float deltaTime, Map* map);
 	virtual void Draw(BackBuffer& backBuffer);
 
 	void SetDead(bool dead);
@@ -31,6 +32,11 @@ public:
 
 	float GetVerticalVelocity();
 	void SetVerticalVelocity(float y);
+
+	bool HorizontalCollision(int x, int y, int &tilePosY, Map* map);
+	bool VerticalCollision(int x, int y, int &tilePosX, Map* map);
+
+	void HandleMovement(float deltaTime, Map* map);
 
 	Sprite& GetSprite();
 

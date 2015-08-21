@@ -10,7 +10,8 @@ public:
 
 	void SetJumped(bool set);
 	bool GetJumped();
-	void Process(float deltaTime);
+	void Process(float deltaTime, Map* map);
+
 private:
 	bool m_jump;
 

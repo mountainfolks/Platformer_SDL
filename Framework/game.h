@@ -8,6 +8,7 @@ class Sprite;
 class Player;
 class AnimatedSprite;
 class Level;
+class Map;
 
 class Game
 {
@@ -62,6 +63,7 @@ protected:
 
 	Player* m_pPlayer;
 	AnimatedSprite* an_sprite;
+	Map* map;
 
 private:
 

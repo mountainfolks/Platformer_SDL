@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Map.h"
 
 Player::Player(AnimatedSprite* sprite) : Entity()
 {
@@ -12,16 +12,19 @@ Player::~Player()
 }
 
 void
-Player::Process(float deltaTime){
-	Entity::Process(deltaTime);
+Player::Process(float deltaTime, Map* map)
+{
+	Entity::Process(deltaTime, map);
 }
 
 void
-Player::SetJumped(bool set){
+Player::SetJumped(bool set)
+{
 	m_jump = set;
 }
 
 bool
-Player::GetJumped(){
+Player::GetJumped()
+{
 	return m_jump;
 }

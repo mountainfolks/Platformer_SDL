@@ -206,8 +206,10 @@ Game::Draw(BackBuffer& backBuffer)
 	backBuffer.Clear();
 
 	//---animated sprite---
-	m_pPlayer->Draw(backBuffer);
-	//an_sprite->Draw(backBuffer);
+	if (m_pPlayer->IsDead() != true){
+		m_pPlayer->Draw(backBuffer);
+		//an_sprite->Draw(backBuffer);
+	}
 
 	map->draw(backBuffer);
 

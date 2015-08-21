@@ -267,3 +267,8 @@ void
 Entity::SetPositionY(float y){
 	m_y = y;
 }
+
+bool
+Entity::IsDead(){
+	return m_dead;
+}

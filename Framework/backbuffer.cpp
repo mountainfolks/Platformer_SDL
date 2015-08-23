@@ -137,7 +137,7 @@ BackBuffer::DrawRectangle(int x1, int y1, int x2, int y2)
 	fillRect.x = x1;
 	fillRect.y = y1;
 	fillRect.w = x2 - x1;
-	fillRect.h = y2 - y1;
+	fillRect.h = y2  - y1;
 
 	SDL_RenderFillRect(m_pRenderer, &fillRect);
 }
